@@ -1,0 +1,91 @@
+/* @import "./base.css"; */
+
+/* #app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+
+  #app {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 2rem;
+  }
+} */
+
+body,html{
+  margin: 0;
+  overflow-y: hidden;
+}
+
+.e-primary-text{
+  color: var(--el-text-color-primary);
+}
+
+.e-regular-text {
+  color: var(--el-text-color-regular);
+}
+
+.e-secondary-text {
+  color: var(--el-text-color-secondary);
+}
+
+.e-placeholder-text {
+  color: var(--el-text-color-secondary);
+  /* #909399 */
+}
+
+.e-disabled-text {
+  color: var(--el-text-color-disabled);
+  /* #909399 */
+}
+
+
+.e-no-select-text {
+  -webkit-touch-callout: none;
+  /*系统默认菜单被禁用*/
+  -webkit-user-select: none;
+  /*webkit浏览器*/
+  -khtml-user-select: none;
+  /*早期浏览器*/
+  -moz-user-select: none;
+  /*火狐*/
+  -ms-user-select: none;
+  /*IE10*/
+  user-select: none;
+}
+
+.e-scrollbar{
+  box-shadow: 0px 10px 15px -20px  rgb(182, 182, 182);
+}
+
+.e-display-none{
+  display: none;
+}
+
+/* 修改暗黑模式的亮度 */
+html.dark {
+  -webkit-filter: brightness(90%);
+  filter: brightness(90%);
+}

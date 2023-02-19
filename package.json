@@ -1,0 +1,33 @@
+{
+  "name": "calendar_note",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.0.9",
+    "@fullcalendar/core": "^5.11.3",
+    "@fullcalendar/daygrid": "^5.11.3",
+    "@fullcalendar/interaction": "^5.11.3",
+    "@fullcalendar/list": "^5.11.3",
+    "@fullcalendar/moment": "^5.11.3",
+    "@fullcalendar/timegrid": "^5.11.3",
+    "@fullcalendar/vue3": "^5.11.2",
+    "axios": "^0.27.2",
+    "echarts": "^5.4.1",
+    "element-plus": "^2.2.17",
+    "esbuild": "^0.15.9",
+    "file-saver": "^2.0.5",
+    "moment": "^2.29.4",
+    "vditor": "^3.8.17",
+    "vue": "^3.2.38",
+    "vue-i18n": "^9.2.2",
+    "vue-router": "^4.1.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.0.3",
+    "vite": "^3.1.3"
+  }
+}
