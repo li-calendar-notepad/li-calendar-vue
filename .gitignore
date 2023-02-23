@@ -27,7 +27,7 @@ coverage
 *.sln
 *.sw?
 .history
-src/views/test/cache.vue
+# src/views/test/cache.vue
 
 # 编辑器所需
 !public/static/vditor-cdn/dist
