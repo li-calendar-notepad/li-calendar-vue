@@ -441,7 +441,6 @@ const emits=defineEmits([
 ])
 
 const dialogClose=()=>{
-    console.log("关闭")
     emits("update:dialogShow",false)
 }
 
