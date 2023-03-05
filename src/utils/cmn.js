@@ -15,7 +15,12 @@ cmn.sHeight=0
 cmn.expoprtSuffix = ".lcn.json"
 cmn.uploadAcceptType = cmn.expoprtSuffix+",.calendar.json,.json"
 
-// 最短格式化开始和结束时间
+/**
+ * @description: 最短格式化开始和结束时间
+ * @param {string} startStr
+ * @param {string} endStr
+ * @return {string}
+ */
 cmn.startAndEndTimeFormatShort=(startStr,endStr)=>{
     // console.log("时间格式化", startStr, endStr)
 
@@ -59,8 +64,11 @@ cmn.sizeChange=(viewWidth,sizeName,callback)=>{
     } 
 }
 
-// 与elementui plus 布局尺寸一致
-// https://element-plus.gitee.io/zh-CN/component/layout.html#col-%E5%B1%9E%E6%80%A7
+/**
+ * @description: 获取屏幕尺寸 
+ * @return {string}xs,xl,lg,md,sm（与elementui plus 布局尺寸一致）
+ * 尺寸参考：https://element-plus.gitee.io/zh-CN/component/layout.html#col-%E5%B1%9E%E6%80%A7
+ */
 cmn.getScreenSizeName = ()=>{
     const viewWidth=window.screen.width
     if (viewWidth < 768) {
@@ -91,7 +99,13 @@ cmn.sizeChangeWithObj = (viewWidth, obj) => {
     }
 }
 
-// 确认框
+/**
+ * @description: 确认框
+ * @param {string} title
+ * @param {string} message
+ * @param {function} callback
+ * @param {object} options
+ */
 cmn.confirm = (title, message, callback, options)=>{
     var options = options || {
         type: 'warning',
@@ -108,7 +122,10 @@ cmn.confirm = (title, message, callback, options)=>{
     })
 }
 
-// 是否为深色模式（暗黑模式），有限获取elementUi-plus的配置
+/**
+ * @description: 是否为深色模式（暗黑模式），有限获取elementUi-plus的配置
+ * @return {bool} 
+ */
 cmn.isDark = ()=>{
     const v = storage.local("vueuse-color-scheme")
     if (v == "auto"){
@@ -125,7 +142,12 @@ cmn.isDark = ()=>{
     
 }
 
-// 获取随机码
+/**
+ * @description: 获取随机码
+ * @param {number} size
+ * @param {array} seed ["a","b"m"c]
+ * @return {string}
+ */
 cmn.randomCode = (size, seed )=> {
     var seed = seed || new Array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'm', 'n', 'p', 'Q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
@@ -140,8 +162,12 @@ cmn.randomCode = (size, seed )=> {
     return createPassword;
 }
 
-// elementui-plus 正则表单验证函数
-// 调用方式：cmn.formExpValidateFunc(/^[0-9a-zA-Z]{4,10}$/, $i18n.t('calendar.password_box.inputErrorMessage'))
+/**
+ * @description: elementui-plus 正则表单验证函数
+ * @param {*} exp
+ * @param {string} message
+ * 调用方式：cmn.formExpValidateFunc(/^[0-9a-zA-Z]{4,10}$/, $i18n.t('calendar.password_box.inputErrorMessage'))
+ */
 cmn.formExpValidateFunc=(exp,message)=>{
     return (rule, value, callback) => {
         if (exp.test(value)) {
@@ -152,7 +178,12 @@ cmn.formExpValidateFunc=(exp,message)=>{
     }
 }
 
-// elementui-plus 正则表单验证函数,允许为空
+/**
+ * @description: elementui-plus 正则表单验证函数,允许为空
+ * @param {*} exp
+ * @param {*} message
+ * @return {*}
+ */
 cmn.formExpValidateFuncAllowEmpty = (exp, message) => {
     return (rule, value, callback) => {
         if (value.length==0 || exp.test(value)) {

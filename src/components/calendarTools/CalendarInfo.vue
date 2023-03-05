@@ -2,12 +2,13 @@
 import StipulateTemplate from "./common/stipulateTemplate.vue";
 import apiItem from "../../api/item";
 import { reactive, ref } from "@vue/reactivity";
-import { Aim,Tools } from '@element-plus/icons-vue'
+import { Aim,Tools,Histogram } from '@element-plus/icons-vue'
 import { useRouter } from "vue-router";
 import CalendarSetting from './Setting.vue'
-
+import StatisticalCharts from "./StatisticalCharts.vue"
 
 const settingShow=ref(false)
+const statisticalChartsDialogShow=ref(false)
 const $router=useRouter()
 const props=defineProps({
   calendarInfo:{
@@ -51,6 +52,8 @@ apiItem.getSummaryData(props.itemId,(d)=>{
   <div>
     <StipulateTemplate :title="calendarInfo.title">
       <el-button type="primary" :icon="Tools" size="small" @click="settingShow=true">管理</el-button>
+      <el-button type="primary" :icon="Histogram" size="small" @click="statisticalChartsDialogShow=true">统计</el-button>
+      
       <div style="margin-top:20px" class="e-regular-text">{{calendarInfo.description}}</div>
       
       <el-divider border-style="dashed" />
@@ -79,6 +82,17 @@ apiItem.getSummaryData(props.itemId,(d)=>{
       <!-- 总事件数 -->
       <el-divider border-style="dashed" />
     </StipulateTemplate>
+    
+    <!-- 统计图表 -->
+    <StatisticalCharts
+      v-model:dialogShow="statisticalChartsDialogShow"
+      :dialog="true"
+      :item-id="4"
+      :itemId="itemId"
+      :visitToken="visitToken"
+    ></StatisticalCharts>
+
+    <!-- 日历设置 -->
     <CalendarSetting   :dialog="true" v-model:dialogShow="settingShow"  :itemId="itemId" :visitToken="visitToken" />
   </div>
   

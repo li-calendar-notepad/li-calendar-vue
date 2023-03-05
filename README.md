@@ -1,4 +1,11 @@
-# calendar_note
+
+# Li Calendar - 锂日历记事本[前端项目]
+
+
+<a title="Github" target="_blank" href="https://github.com/li-calendar-notepad">Github</a> |
+<a title="Gitee" target="_blank" href="https://gitee.com/li-calendar-notepad">Gitee</a> 
+</p>
+
 
 This template should help get you started developing with Vue 3 in Vite.
 

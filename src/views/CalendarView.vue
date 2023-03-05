@@ -52,11 +52,11 @@ const asideMenu=[
     action:"subject",
     title:$i18n.t("calendar.toolbar.subject")
   },
-  {
-    icon:"Share",
-    action:"share",
-    title:$i18n.t("calendar.toolbar.share")
-  },
+  // {
+  //   icon:"Share",
+  //   action:"share",
+  //   title:$i18n.t("calendar.toolbar.share")
+  // },
   {
     icon:"Search",
     action:"search",

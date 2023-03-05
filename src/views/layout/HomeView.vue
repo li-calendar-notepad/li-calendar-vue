@@ -34,15 +34,15 @@
       icon:"House",
       path:"/home"
     },
-    {
-      text: $i18n.t("common.shorthand"),
-      icon:"Memo",
-      path:""
-    },
-    {
-      text: $i18n.t("common.message"),
-      icon:"Bell"
-    },
+    // {
+    //   text: $i18n.t("common.shorthand"),
+    //   icon:"Memo",
+    //   path:""
+    // },
+    // {
+    //   text: $i18n.t("common.message"),
+    //   icon:"Bell"
+    // },
     {
       text: $i18n.t("common.setting"),
       icon:"Setting",
