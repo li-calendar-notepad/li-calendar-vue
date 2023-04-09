@@ -131,7 +131,7 @@ onMounted(() => {
 <template>
   <div>
     <StipulateTemplate style="color:#303133" :title="title?title:$t('calendar.setting.title')" :dialog="dialog" v-model:dialogShow="dialogShow" @dialogClose="dialogClose">
-      <el-form :model="form" label-width="120px" ref="settingFormRef" :rules="settingFormRules">
+      <el-form :model="form" label-width="auto" ref="settingFormRef" :rules="settingFormRules">
         <!-- 基础设置 -->
         <el-divider content-position="left">{{$t("calendar.setting.base.title")}}</el-divider>
         <el-form-item :label='$t("calendar.setting.base.item_name")' prop ="title">

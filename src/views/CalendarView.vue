@@ -369,6 +369,7 @@ const updateEvent=(info)=>{
     updateEvent.className=event.classNames[0]
   }
   // console.log("拖动更新后", updateEvent)
+  updateEvent.IsOnlyTime=true // 仅更新时间
   apiEvent.updateByEventId(itemInfo.value.itemId,updateEvent,()=>{
     return false
   })

@@ -3,7 +3,7 @@
         <h2>{{$t('userInfoUpdate.title')}}</h2>
 
         <el-divider content-position="left">{{$t('userInfoUpdate.subTitleInfoUpdate')}}</el-divider>
-        <el-form :model="userInfo" ref="updateInfoRef" label-width="120px" :rules="userInfoRules">
+        <el-form :model="userInfo" ref="updateInfoRef" label-width="auto" :rules="userInfoRules">
             <el-form-item :label="$t('userInfoUpdate.headImage')">
                 <el-upload
                     class="avatar-uploader"
@@ -32,7 +32,7 @@
         </el-form>
 
         <el-divider content-position="left">{{$t('userInfoUpdate.subTitlePassUpdate')}}</el-divider>
-        <el-form :model="passform" ref="updatePasswordRef" label-width="120px" :rules="updatePasswordRules">
+        <el-form :model="passform" ref="updatePasswordRef" label-width="auto" :rules="updatePasswordRules">
             <el-form-item :label="$t('userInfoUpdate.oldPass')" prop="oldPassword">
                 <el-input type="password" v-model="passform.oldPassword" />
             </el-form-item>

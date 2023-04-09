@@ -70,6 +70,11 @@ const router = createRouter({
           name: 'adminSpecialDay',
           component: () => import('../views/admin/SpecialDay.vue'),
         },
+        {
+          path: 'about',
+          name: 'about',
+          component: () => import('../views/admin/About.vue'),
+        },
         
       ]
     },

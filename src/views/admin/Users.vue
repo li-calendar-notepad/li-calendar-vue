@@ -4,12 +4,13 @@ import Edialog from "../../components/Edialog.vue";
 
 import apiAdminUsers from "../../api/admin/users";
 
-import { Edit,Delete} from '@element-plus/icons-vue'
+import { Edit,Delete,Plus} from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus';
 
 import validate from "../../utils/validate";
 import request from '../../api/request';
-
+import { useI18n } from "vue-i18n";
+const $i18n=useI18n();
 const userForm = ref({
   name:"",
   userId:0,
@@ -25,7 +26,7 @@ const usersTableRef=ref()
 
 const vaildateIsEmail=(rule, value, callback)=>{
   if(!validate.isEmail(value)){
-    callback("请输入邮箱格式作为账号")
+    callback( $i18n.t('adminUsers.usernamePlaceholder'))
   }else{
     callback()
   }
@@ -33,12 +34,12 @@ const vaildateIsEmail=(rule, value, callback)=>{
 
 const formRules=reactive({
   username:[
-    { required: true,message:"必填项",trigger: 'blur'},
+    { required: true,message:$i18n.t('form.required'),trigger: 'blur'},
     { validator:vaildateIsEmail,trigger: 'blur'},
     
   ],
   name:[
-    { required: true,message:"必填项",trigger: 'blur'},
+    { required: true,message:$i18n.t('form.required'),trigger: 'blur'},
   ]
 })
 
@@ -62,12 +63,12 @@ const updateUser=(info)=>{
 const submitForm=(usersTableRef)=>{
   usersTableRef.validate((valid)=>{
     if(valid){
-      console.log("提交",userForm.value)
+      // console.log("提交",userForm.value)
       if(!userForm.value.userId){
         // 创建
         apiAdminUsers.create(userForm.value,(d)=>{
           usersTableRef.resetFields()
-          ElMessage.success("创建完成")
+          ElMessage.success($i18n.t('common.operation')+$i18n.t('common.complete'))
           getList()
           editVisible.value=false
         })
@@ -75,7 +76,7 @@ const submitForm=(usersTableRef)=>{
         // 修改
         apiAdminUsers.update(userForm.value,(d)=>{
           usersTableRef.resetFields()
-          ElMessage.success("修改完成")
+          ElMessage.success($i18n.t('common.operation')+$i18n.t('common.complete'))
           getList()
           editVisible.value=false
         })
@@ -87,8 +88,8 @@ const submitForm=(usersTableRef)=>{
 
 const deleteOne=(info)=>{
   ElMessageBox.confirm(
-    `请确认是否删除用户：${info.name} [${info.username}]`,
-    '警告',
+    $i18n.t('adminUsers.delTip')+`:${info.name} [${info.username}]`,
+    $i18n.t('common.warning'),
     {
       type: 'warning',
     }
@@ -124,33 +125,33 @@ getList()
 <template>
 <div style="padding:20px;height:calc(100% - 50px)">
   <!-- <h2>风格管理</h2> -->
-  <el-button @click="createUser" type="primary">新建用户</el-button>
+  <el-button @click="createUser" :icon="Plus"  type="primary">{{$t('adminUsers.createUser')}}</el-button>
 
-  <Edialog v-model:visible="editVisible" title="编辑" :closeOnClickModal="true" bigScreenWidth="600px" @close="usersTableRef?.resetFields?.()">
-    <el-form :model="userForm" ref="usersTableRef" label-width="120px" :rules="formRules">
-      <el-form-item label="账号" prop="username">
-        <el-input v-model="userForm.username" placeholder="请输入邮箱格式" />
+  <Edialog v-model:visible="editVisible" :title="$t('common.edit')" :closeOnClickModal="true" bigScreenWidth="600px" @close="usersTableRef?.resetFields?.()">
+    <el-form :model="userForm" ref="usersTableRef" label-width="auto" :rules="formRules">
+      <el-form-item :label="$t('common.username')" prop="username">
+        <el-input v-model="userForm.username" :placeholder="$t('adminUsers.usernamePlaceholder')" />
       </el-form-item>
-      <el-form-item label="名称" prop="name">
+      <el-form-item :label="$t('common.name')" prop="name">
         <el-input v-model="userForm.name" />
       </el-form-item>
-      <el-form-item label="角色" prop="role">
+      <el-form-item :label="$t('common.role')" prop="role">
         <el-select v-model="userForm.role">
-          <el-option label="管理员" :value="1" />
-          <el-option label="普通用户" :value="2"  />
+          <el-option :label="$t('adminUsers.adminUser')" :value="1" />
+          <el-option :label="$t('adminUsers.user')" :value="2"  />
         </el-select>
       </el-form-item>
-      <el-form-item label="状态" prop="status">
+      <el-form-item :label="$t('common.status')" prop="status">
         <el-select v-model="userForm.status">
-          <el-option label="启用" :value="1" />
-          <el-option label="停用" :value="2" />
+          <el-option :label="$t('common.startUse')" :value="1" />
+          <el-option :label="$t('common.stopUse')" :value="2" />
           <!-- <el-option label="未激活" :value="3" /> -->
         </el-select>
       </el-form-item>
     </el-form>
 
     <template #footer>
-      <el-button type="primary" @click="submitForm(usersTableRef)">保存</el-button>
+      <el-button type="primary" @click="submitForm(usersTableRef)">{{$t('common.save')}}</el-button>
     </template>
   </Edialog>
 
@@ -162,28 +163,28 @@ getList()
     
     <el-table-column prop="userId" label="UID" > </el-table-column>
 
-    <el-table-column prop="name" label="名称"  width="180"/>
+    <el-table-column prop="name" :label="$t('common.name')"  width="180"/>
 
-    <el-table-column prop="username" label="账号" width="180" > </el-table-column>
+    <el-table-column prop="username" :label="$t('common.username')" width="180" > </el-table-column>
     
-    <el-table-column label="角色">
+    <el-table-column :label="$t('common.role')">
       <template #default="scope">
-        <el-tag v-if="scope.row.role==1">管理员</el-tag>
+        <el-tag v-if="scope.row.role==1">{{$t('adminUsers.adminUser')}}</el-tag>
         <!-- <el-tag v-else="scope.row.role==2" type="info">普通用户</el-tag> -->
-        <el-tag v-else type="success">普通用户</el-tag>
+        <el-tag v-else type="success">$t('adminUsers.user')</el-tag>
       </template>
     </el-table-column>
 
-    <el-table-column label="状态">
+    <el-table-column :label="$t('common.status')">
       <template #default="scope">
-        <el-tag v-if="scope.row.status==1"  type="success">正常</el-tag>
-        <el-tag v-else-if="scope.row.status==2" type="danger">停用</el-tag>
-        <el-tag v-else-if="scope.row.status==3" type="info">未激活</el-tag>
+        <el-tag v-if="scope.row.status==1"  type="success">{{$t('common.normal')}}</el-tag>
+        <el-tag v-else-if="scope.row.status==2" type="danger">{{$t('common.stopUse')}}</el-tag>
+        <el-tag v-else-if="scope.row.status==3" type="info">{{$t('common.notActive')}}</el-tag>
         <!-- <el-tag v-else></el-tag> -->
       </template>
     </el-table-column>
 
-    <el-table-column label="编辑">
+    <el-table-column>
       <template #default="scope">
        <el-button type="primary" @click="updateUser(scope.row)" :icon="Edit" />
        <el-button type="danger" @click="deleteOne(scope.row)" :icon="Delete"  />

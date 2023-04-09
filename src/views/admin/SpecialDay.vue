@@ -9,6 +9,8 @@ import { Document, Delete } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus';
 import request from '../../api/request';
 import cmn from '../../utils/cmn'
+import { useI18n } from "vue-i18n";
+const $i18n=useI18n();
 
 const shwoBorder = ref(false)
 const tableData = ref()
@@ -26,14 +28,14 @@ const getList = () => {
 const deleteOne = (row) => {
   console.log(row)
   ElMessageBox.confirm(
-    '确定删除该方案 ' + row.name,
-    '警告',
+    $i18n.t('adminSpecialDay.delTip')+eventStyle.title,
+    $i18n.t('common.warning'),
     {
       type: 'warning',
     }
   ).then(() => {
     apiSpecialDay.deleteOne(row.id, () => {
-      ElMessage.success("已删除")
+      ElMessage.success($i18n.t('common.delete_success'))
       getList()
     })
 
@@ -56,10 +58,10 @@ const submitUpload = () => {
 // 配置文件上传成功
 const jsonConfigUploadSuccess = (response, uploadfile) => {
   if (response.code == 0) {
-    ElMessage.success("导入成功")
+    ElMessage.success($i18n.t('common.importSuccess'))
     getList()
   } else {
-    ElMessage.warning("导入失败," + response.msg)
+    ElMessage.warning($i18n.t('common.importFail')+","+response.msg)
   }
 }
 getList()
@@ -74,7 +76,7 @@ getList()
       :auto-upload="true" :on-success="jsonConfigUploadSuccess" :accept="cmn.uploadAcceptType" :show-file-list="false"
       style="display: inline-flex;margin-left:12px">
       <template #trigger>
-        <el-button>导入</el-button>
+        <el-button>{{$t('common.import')}}</el-button>
       </template>
 
       <!-- <el-button class="ml-3" type="success" @click="submitUpload">
@@ -95,11 +97,11 @@ getList()
 
       <!-- <el-table-column type="selection" width="55" /> -->
 
-      <el-table-column prop="name" label="特殊日期方案" />
-      <el-table-column prop="onlyId" label="标识"  />
+      <el-table-column prop="name" :label="$t('adminSpecialDay.schemeName')" />
+      <el-table-column prop="onlyId" :label="$t('common.identify')"  />
       
 
-      <el-table-column prop="updateTime" label="更新日期" width="180">
+      <el-table-column prop="updateTime" :label="$t('common.updateDate')" width="180">
  
 
       </el-table-column>
@@ -115,10 +117,10 @@ getList()
 
     <Edialog v-model:visible="editVisible" title="详情" :closeOnClickModal="true" bigScreenwidth="600px">
       <el-table ref="styleTableRef" :data="infoDaysTable" height="500px">
-        <el-table-column prop="note" label="备注" />
-        <el-table-column prop="startTime" label="开始" />
-        <el-table-column prop="endTime" label="结束" />
-        <el-table-column label="是否为假期" width="180">
+        <el-table-column prop="note" :label="$t('common.remark')" />
+        <el-table-column prop="startTime" :label="$t('common.startTime')" />
+        <el-table-column prop="endTime" :label="$t('common.endTime')" />
+        <el-table-column :label="$t('adminSpecialDay.isHoliday')" width="180">
           <template #default="scope">
             <span v-if="scope.row.type == 2 ">{{ $t("common.yes") }}</span>
           </template>

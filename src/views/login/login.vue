@@ -4,7 +4,7 @@
     <!-- 蒙版 -->
     <div class="mask">
       <div>
-        <el-form ref="ruleFormRef" size="large" :model="form" :rules="rules" label-width="80px" class="login-box">
+        <el-form ref="ruleFormRef" @keyup.enter="onSubmit(ruleFormRef)" size="large" :model="form" :rules="rules" label-width="80px" class="login-box">
           <h3 class="login-title e-primary-text">{{ $t('common.appName') }} - {{ $t('login.login') }}</h3>
           <el-form-item prop="username" label-width="0">
             <div class="login-form-item" style="width:100%">

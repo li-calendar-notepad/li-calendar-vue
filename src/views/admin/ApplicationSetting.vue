@@ -1,28 +1,28 @@
 <template>
     <el-main style="padding:20px;max-width:500px">
         <!-- <h2>邮箱设置</h2> -->
-        <el-form :model="appSetting" ref="appSettingRef" :rules="appSettingRules" label-width="120px">
-            <el-divider content-position="left">登录设置</el-divider>
-            <el-form-item label="开启图形验证码">
+        <el-form :model="appSetting" ref="appSettingRef" :rules="appSettingRules" label-width="auto">
+            <el-divider content-position="left">{{$t('login.login')}}{{$t('common.setting')}}</el-divider>
+            <el-form-item :label="$t('adminSiteSetting.TurnOnGraphicCaptcha')">
                 <el-switch v-model="appSetting.loginCaptcha" />
             </el-form-item>
-            <el-divider content-position="left">注册设置</el-divider>
-            <el-form-item label="开放注册">
+            <el-divider content-position="left">{{$t('login.register')}}{{$t('common.setting')}}</el-divider>
+            <el-form-item :label="$t('adminSiteSetting.registerOpenUp')">
                 <el-switch v-model="appSetting.openRegister" />
             </el-form-item>
-            <el-form-item label="限制邮箱后缀">
+            <el-form-item :label="$t('adminSiteSetting.registerRestrictMailSuf')">
                 <el-input v-model="appSetting.emailSuffix" type="text" placeholder="eg:@qq.com" />
                 
-                <div class="e-secondary-text" style="line-height:normal;">限制新注册邮箱的后缀，一般用于企业邮箱。后台添加用户不受影响</div>
+                <div class="e-secondary-text" style="line-height:normal;">{{$t('adminSiteSetting.registerRestrictMailSufContent')}}</div>
             </el-form-item>
-            <el-divider content-position="left">其他</el-divider>
-            <el-form-item label="站点地址" prop="webSiteUrl">
-                <el-input v-model="appSetting.webSiteUrl" placeholder="应用于外部跳转到主站，例如邮件内等" />
-                <el-button size="small" style="margin-top:10px" @click="appSetting.webSiteUrl=getCurrentDomain()">获取当前地址</el-button>
+            <el-divider content-position="left">{{$t('common.other')}}</el-divider>
+            <el-form-item :label="$t('adminSiteSetting.siteAddress')" prop="webSiteUrl">
+                <el-input v-model="appSetting.webSiteUrl" :placeholder="$t('adminSiteSetting.siteAddressPlaceholder')" />
+                <el-button size="small" style="margin-top:10px" @click="appSetting.webSiteUrl=getCurrentDomain()">{{$t('adminSiteSetting.siteGetCurrentUrl')}}</el-button>
             </el-form-item>
 
             <el-form-item>
-                <el-button type="primary" @click="passformOnSubmit(appSettingRef)">保存</el-button>
+                <el-button type="primary" @click="passformOnSubmit(appSettingRef)">{{$t('common.save')}}</el-button>
             </el-form-item>
         </el-form>
     </el-main>
@@ -33,11 +33,12 @@ import { reactive, ref } from "@vue/reactivity";
 import { ElMessage } from "element-plus";
 import apiSystemSetting from "../../api/admin/systemSetting";
 import inputValidate from "../../utils/validate";
-
+import { useI18n } from "vue-i18n";
+const $i18n=useI18n();
 const appSettingRef=ref()
 const validatorUrl = (rule, value, callback) => {
     if (!inputValidate.isURL(value)) {
-        callback("网站地址格式不正确")
+        callback($i18n.t('adminSiteSetting.siteAddressFormatError'))
     } else {
         callback()
     }
@@ -64,9 +65,9 @@ const passformOnSubmit = (appSettingRef) => {
     appSettingRef.validate((valid) => {
         if (valid) {
             apiSystemSetting.setApplicationSetting(appSetting.value, (d) => {
-                ElMessage.success("保存成功")
+                ElMessage.success($i18n.t('common.save_success'))
             }, (d) => {
-                ElMessage.warning("保存失败，" + d.msg)
+                ElMessage.warning($i18n.t('common.save_error') +","+ d.msg)
             })
         }
 

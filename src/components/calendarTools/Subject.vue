@@ -123,7 +123,7 @@ const deleteSubjectOne=(info)=>{
 
 
 const addSubject=()=>{
-  editSubjectInfoEdialog.title="添加事件主题"
+  editSubjectInfoEdialog.title="添加事件模板"
   editDialogShow.value=true
   resetEditSubjectForm()
 }

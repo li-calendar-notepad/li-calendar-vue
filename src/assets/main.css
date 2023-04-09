@@ -85,7 +85,7 @@ body,html{
 }
 
 /* 修改暗黑模式的亮度 */
-html.dark {
+/* html.dark {
   -webkit-filter: brightness(90%);
   filter: brightness(90%);
-}
+} */

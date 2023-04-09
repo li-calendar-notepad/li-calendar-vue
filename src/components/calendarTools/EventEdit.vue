@@ -338,15 +338,21 @@ const clickClose=()=>{
   emits("update:dialogShow",false)
 }
 
+// 保存事件
 const saveEvent = (closeDialog)=>{
   eventInfo.content=vditorObj.value.getValue()
 
   if(eventInfo.content=="\n"){
     eventInfo.content=""
   }
-
   // console.log("准备保存",eventInfo)
   // return
+
+  // 开始时间和结束时间不可以为空
+  if(!eventInfo.startTime || !eventInfo.endTime){
+    ElMessage.warning($i18n.t("calendar.eventEdit.timeNotEmpty"))
+    return
+  }
 
   // 事件id存在
   if(eventInfo.eventId){
@@ -396,7 +402,7 @@ const addEvent = (itemId,data)=>{
   eventInfo.content=data.content || ""
   eventInfo.startTime = data.startTime || currentTime.format('YYYY-MM-DD HH:mm:ss')
   eventInfo.endTime = data.endTime || currentTime.add(1,"hours").format('YYYY-MM-DD HH:mm:ss')
-  eventInfo.remind=data.remind || ""
+  eventInfo.reminderBefore=data.reminderBefore || 0
   eventInfo.className=data.className || ""
   if(vditorObj.value){
     vditorObj.value.setValue("",true)
@@ -418,16 +424,20 @@ const editEvent=(itemId,eventId)=>{
     eventInfo.content=data.content || ""
     eventInfo.startTime=data.startTime || ""
     eventInfo.endTime=data.endTime || ""
-    eventInfo.remind=data.remind || ""
+    eventInfo.reminderBefore=data.reminderBefore || 0
     eventInfo.className=data.className || ""
     vditorObj.value.setValue(eventInfo.content,true)
   })
 }
 
+// 点击快捷主题
 const onClickSubjectItem=(subjectInfo)=>{
-  eventInfo.title=`#${subjectInfo.title}# `+eventInfo.title
-  eventInfo.className=subjectInfo.className
-  // console.log(eventInfo)
+  const subjectTitle=`#${subjectInfo.title}#`
+  // 检测是否存在该主题
+  if(eventInfo.title.indexOf(subjectTitle)===-1){
+    eventInfo.title=subjectTitle+" "+eventInfo.title
+    eventInfo.className=subjectInfo.className
+  }
 }
 
 
@@ -550,19 +560,23 @@ onMounted(()=>{
                 </el-form-item>
               </el-col>
         
-              <!-- <el-col :span="formSpan" >
-                      <el-form-item :label="$t('calendar.eventEdit.remind')">
-                        <el-select v-model="eventInfo.remind" :placeholder="$t('calendar.eventEdit.remind_placeholder')">
-                          <el-option label="不提醒" :value="7" />
-                          <el-option label="开始前1天" :value="7" />
-                          <el-option label="结束前1天" :value="1" />
-                          <el-option label="开始前15分钟" :value="7" />
-                          <el-option label="结束前15分钟" :value="1" />
-                          <el-option label="开始时间" :value="7" />
-                          <el-option label="结束时间" :value="1" />
-                        </el-select>
-                      </el-form-item>
-                    </el-col> -->
+              <el-col :span="formSpan" >
+                <el-form-item :label="$t('calendar.eventEdit.remind')" size="small">
+                  <el-select v-model="eventInfo.reminderBefore" :placeholder="$t('calendar.eventEdit.remind_placeholder')">
+                    <el-option label="关闭" :value="0" />
+                    <el-option label="开始前1分钟" :value="1" />
+                    <el-option label="开始前5分钟" :value="5" />
+                    <el-option label="开始前10分钟" :value="10" />
+                    <el-option label="开始前15分钟" :value="15" />
+                    <el-option label="开始前30分钟" :value="30" />
+                    <el-option label="开始前1小时" :value="60" />
+                    <el-option label="开始前2小时" :value="120" />
+                    <el-option label="开始前1天" :value="1440" />
+                    <el-option label="开始前2天" :value="2880" />
+                    <el-option label="开始前1周" :value="10080" />
+                  </el-select>
+                </el-form-item>
+              </el-col>
         
             </el-row>
           </el-form>

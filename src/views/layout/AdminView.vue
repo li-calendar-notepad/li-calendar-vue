@@ -90,6 +90,11 @@ const asideMenuList=reactive(
       title: $i18n.t('common.specialDay'),
       icon: "Football",
     },
+    {
+      path: "/admin/about",
+      title: $i18n.t('common.about'),
+      icon: "Help",
+    },
     
   ]
 )

@@ -2,7 +2,7 @@
     <div>
         <button @click="selectDialogShow=true">添加一项</button>
         <div class="form-content" v-for="item,index in formData" :key="index">
-            <el-form :model="form" label-width="120px">
+            <el-form :model="form" label-width="auto">
                 <div v-if="item.formType=='input.number'">
                     <el-form-item :label="item.title">
                         <el-input type="number" v-model="form.name" :placeholder="item.placeholder" />
